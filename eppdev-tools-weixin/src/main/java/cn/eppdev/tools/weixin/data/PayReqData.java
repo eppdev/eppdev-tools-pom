@@ -11,8 +11,14 @@ import java.util.Map;
  * Created by haojinlong on 16-4-4.
  */
 public class PayReqData implements Serializable{
+	
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3721186441916611103L;
+
+	/**
      * 微信分配的公众账号ID（企业号corpid即为此appId）
      */
     private String appid;

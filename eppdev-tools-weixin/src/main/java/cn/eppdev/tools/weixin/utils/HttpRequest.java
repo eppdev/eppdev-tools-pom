@@ -64,20 +64,16 @@ public class HttpRequest {
 
         } catch (ConnectionPoolTimeoutException e) {
             logger.error("http get throw ConnectionPoolTimeoutException(wait time out)");
-            logger.error("error: {}", e.getMessage());
-            logger.error("detail:{}", e.getStackTrace());
+            logger.error("error: {}\ndetail: ", e.getMessage(), e.getStackTrace());
         } catch (ConnectTimeoutException e) {
             logger.error("http get throw ConnectTimeoutException");
-            logger.error("error: {}", e.getMessage());
-            logger.error("detail:{}", e.getStackTrace());
+            logger.error("error: {}\ndetail: ", e.getMessage(), e.getStackTrace());
         } catch (SocketTimeoutException e) {
             logger.error("http get throw SocketTimeoutException");
-            logger.error("error: {}", e.getMessage());
-            logger.error("detail:{}", e.getStackTrace());
+            logger.error("error: {}\ndetail: ", e.getMessage(), e.getStackTrace());
         } catch (Exception e) {
             logger.error("http get throw Exception");
-            logger.error("error: {}", e.getMessage());
-            logger.error("detail:{}", e.getStackTrace());
+            logger.error("error: {}\ndetail: ", e.getMessage(), e.getStackTrace());
         } finally {
             httpPost.abort();
         }
