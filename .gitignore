@@ -1,8 +1,13 @@
-*.idea/*
+# for intellij idea
+.idea/*
 *.iml
+
+# for eclipse
 .project
-*/*.settings/*
 .settings/*
+*/.settings/*
+*/*/.settings/*
+*/*/*.settings/*
 .classpath
 
 
