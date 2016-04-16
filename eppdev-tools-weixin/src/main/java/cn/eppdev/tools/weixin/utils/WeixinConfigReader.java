@@ -4,12 +4,15 @@ import cn.eppdev.tools.weixin.commons.WeixinConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * Created by haojinlong on 16-4-4.
  */
 public class WeixinConfigReader {
 
-    static Logger logger  = LoggerFactory.getLogger(WeixinConfigReader.class);
+    private static Logger logger  = LoggerFactory.getLogger(WeixinConfigReader.class);
 
     private static WeixinConfigReader instance;
 
@@ -31,6 +34,15 @@ public class WeixinConfigReader {
     }
 
     public static WeixinConfigReader getInstance(){
+        if (instance == null){
+            Properties p = new Properties();
+            try {
+                p.load(WeixinConfigReader.class.getResourceAsStream("/weixin.properties"));
+                instance = new WeixinConfigReader(p.get("config").toString());
+            } catch (IOException e) {
+                logger.error("error:{}\n{}", e.getMessage(), e.getStackTrace());
+            }
+        }
         return instance;
     }
 
@@ -43,12 +55,8 @@ public class WeixinConfigReader {
             appsecret = weixinConfig.getAppsecret();
             token = weixinConfig.getToken();
             key = weixinConfig.getKey();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            logger.error("error:{}\n{}", e.getMessage(), e.getStackTrace());
         }
 
     }
