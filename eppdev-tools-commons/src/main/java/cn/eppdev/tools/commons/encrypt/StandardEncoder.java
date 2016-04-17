@@ -1,11 +1,11 @@
-package cn.eppdev.tools.weixin.commons;
+package cn.eppdev.tools.commons.encrypt;
 
 import java.security.MessageDigest;
 
 /**
  * Created by haojinlong on 16-3-1.
  */
-public class Encoder {
+public class StandardEncoder {
 
     private final static String[] hexDigits = {"0", "1", "2", "3", "4", "5", "6", "7",
             "8", "9", "a", "b", "c", "d", "e", "f"};
