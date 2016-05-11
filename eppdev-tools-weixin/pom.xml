@@ -32,6 +32,11 @@
             <artifactId>xstream</artifactId>
             <version>1.4.9</version>
         </dependency>
+        <dependency>
+            <groupId>cn.eppdev.tools</groupId>
+            <artifactId>eppdev-tools-commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

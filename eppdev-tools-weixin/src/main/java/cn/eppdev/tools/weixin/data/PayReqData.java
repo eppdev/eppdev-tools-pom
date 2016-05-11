@@ -1,23 +1,21 @@
 package cn.eppdev.tools.weixin.data;
 
 import com.alibaba.fastjson.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by haojinlong on 16-4-4.
+ * @author 郝金隆
+ * @since 16-4-4
  */
-public class PayReqData implements Serializable{
+public class PayReqData {
+
+    private static Logger logger = LoggerFactory.getLogger(PayReqData.class);
 	
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 3721186441916611103L;
-
 	/**
      * 微信分配的公众账号ID（企业号corpid即为此appId）
      */
@@ -278,7 +276,7 @@ public class PayReqData implements Serializable{
 
     /**
      * 将参数信息转换成为Map
-     * @return
+     * @return 参数MAP
      */
     public Map<String, Object> toMap(){
         Map<String, Object> result = new HashMap<>();
@@ -290,10 +288,8 @@ public class PayReqData implements Serializable{
                 if(obj!=null){
                     result.put(field.getName(), obj);
                 }
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                logger.error("error: {}\n{}", e.getMessage(), e.getStackTrace());
             }
         }
         return result;

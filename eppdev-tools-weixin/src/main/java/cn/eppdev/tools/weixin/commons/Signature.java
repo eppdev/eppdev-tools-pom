@@ -1,5 +1,6 @@
 package cn.eppdev.tools.weixin.commons;
 
+import cn.eppdev.tools.commons.encrypt.StandardEncoder;
 import cn.eppdev.tools.weixin.utils.WeixinConfigReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,16 +11,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * Created by haojinlong on 16-4-4.
+ * @author 郝金隆
+ * @since 16-4-4
  */
 public class Signature {
 
-    static Logger logger = LoggerFactory.getLogger(Signature.class);
+    private static Logger logger = LoggerFactory.getLogger(Signature.class);
 
     public static String getSign(Map<String,Object> map){
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         for(Map.Entry<String,Object> entry:map.entrySet()){
             if(entry.getValue()!=""){
                 list.add(entry.getKey() + "=" + entry.getValue() + "&");
@@ -37,7 +40,7 @@ public class Signature {
 
         logger.debug("Sign Before MD5: {}", result);
         //Util.log("Sign Before MD5:" + result);
-        result = Encoder.MD5Encode(result).toUpperCase();
+        result = StandardEncoder.MD5Encode(result).toUpperCase();
         //Util.log("Sign Result:" + result);
         return result;
     }
@@ -56,7 +59,7 @@ public class Signature {
         Map<String,Object> map = XMLParser.getMapFromXML(responseString);
 
         String signFromAPIResponse = map.get("sign").toString();
-        if(signFromAPIResponse=="" || signFromAPIResponse == null){
+        if(Objects.equals(signFromAPIResponse, "") || signFromAPIResponse == null){
             return false;
         }
         //清掉返回数据对象里面的Sign数据（不能把这个数据也加进去进行签名），然后用签名算法进行签名
@@ -64,11 +67,7 @@ public class Signature {
         //将API返回的数据根据用签名算法进行计算新的签名，用来跟API返回的签名进行比较
         String signForAPIResponse = Signature.getSign(map);
 
-        if(!signForAPIResponse.equals(signFromAPIResponse)){
-            //签名验不过，表示这个API返回的数据有可能已经被篡改了
-            return false;
-        }
-        return true;
+        return signForAPIResponse.equals(signFromAPIResponse);
     }
 
 }
