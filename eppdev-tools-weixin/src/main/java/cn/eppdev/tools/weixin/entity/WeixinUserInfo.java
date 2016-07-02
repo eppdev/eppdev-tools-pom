@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by haojinlong on 16-4-3.
  */
-public class UserInfo implements Serializable {
+public class WeixinUserInfo implements Serializable {
 
     private static final long serialVersionUID = 5717418371099084431L;
 

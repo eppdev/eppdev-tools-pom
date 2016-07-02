@@ -17,9 +17,9 @@ import java.net.URLEncoder;
 /**
  * Created by haojinlong on 16-4-4.
  */
-public class PayUtils {
+public class WeixinPayUtils {
 
-    static Logger logger = LoggerFactory.getLogger(PayUtils.class);
+    static Logger logger = LoggerFactory.getLogger(WeixinPayUtils.class);
 
     /**
      * 统一下单

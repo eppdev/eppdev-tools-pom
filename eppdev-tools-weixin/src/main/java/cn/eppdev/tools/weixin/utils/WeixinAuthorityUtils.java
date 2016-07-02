@@ -1,7 +1,7 @@
 package cn.eppdev.tools.weixin.utils;
 
 import cn.eppdev.tools.weixin.entity.AccessToken;
-import cn.eppdev.tools.weixin.entity.UserInfo;
+import cn.eppdev.tools.weixin.entity.WeixinUserInfo;
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,10 +17,10 @@ import java.io.IOException;
 /**
  * Created by haojinlong on 16-4-1.
  */
-public class AuthorityUtils {
+public class WeixinAuthorityUtils {
 
 
-    private static Logger logger = LoggerFactory.getLogger(AuthorityUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(WeixinAuthorityUtils.class);
 
 
     /**
@@ -58,7 +58,7 @@ public class AuthorityUtils {
      * @param openid openid
      * @return 用户基本信息
      */
-    public static synchronized UserInfo getUserInfo(String token, String openid) {
+    public static synchronized WeixinUserInfo getUserInfo(String token, String openid) {
         String url = WeixinConfigReader.USERINFO_URL + "?access_token=" + token +
                 "&openid=" + openid + "&lang=zh_CN";
         HttpPost post = new HttpPost(url);
@@ -67,7 +67,7 @@ public class AuthorityUtils {
             HttpResponse response = httpClient.execute(post);
             HttpEntity entity = response.getEntity();
             String json = EntityUtils.toString(entity, "UTF-8");
-            return JSON.parseObject(json, UserInfo.class);
+            return JSON.parseObject(json, WeixinUserInfo.class);
         } catch (IOException e) {
             logger.error("error:{}\n{}", e.getMessage(), e.getStackTrace());
         }
